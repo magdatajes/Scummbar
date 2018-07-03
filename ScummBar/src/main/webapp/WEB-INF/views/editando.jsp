@@ -7,12 +7,39 @@
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.7.3/themes/base/jquery-ui.css">
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<script>
+	$(function() {
+		$('#dia').datepicker({
+			dateFormat : 'dd/mm/yy'
+		});
+		$('#dia').attr('readonly', true);});
+</script>
+<tiles:insertDefinition name="defaultTemplate">
+	<tiles:putAttribute name="body">
+		<div class="body">
+			<form:form action="editando" method="post">
+				<div>
+					<label for="personas"><spring:message code="reservar.personas"/></label>
+<%-- 					<form:select path="personas" htmlEscape="true"> --%>
+<%-- 						<c:forEach begin="1" end="10" var="count"> --%>
+<%-- 							<form:option value="${count}" /> --%>
+<%-- 						</c:forEach> --%>
+<%-- 					</form:select> --%>
+				</div>
+				<div>
+					<label for="dia"><spring:message code="cancelar.dia"/></label>
+					<form:input path="dia" type="text" cssClass="date-picker" />
+				</div>
+				<label for="turno"><spring:message code="cancelar.turno"/></label>
+<%-- 				<form:select path="turnoId" items="${command.turnos}"  itemValue="id" itemLabel="descripcion" htmlEscape="true" /> --%>
+				</div>
+				
+				<div>
+				<button type="submit" value="Editar">
+						<spring:message code="editar.submit" />
+					</button>
+				</div>
+			</form:form>
+		</div>
+	</tiles:putAttribute>
+</tiles:insertDefinition>

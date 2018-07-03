@@ -15,7 +15,6 @@ import com.scummbar.dao.MesaDAO;
 import com.scummbar.dao.ReservaDAO;
 import com.scummbar.dao.RestauranteDAO;
 import com.scummbar.dao.TurnoDAO;
-import com.scummbar.modelo.dto.EditarDto;
 import com.scummbar.modelo.dto.ReservarDto;
 import com.scummbar.modelo.entities.Mesa;
 import com.scummbar.modelo.entities.Reserva;
@@ -44,8 +43,12 @@ public class NegocioRestaurante implements INegocioRestaurante {
 	public boolean editarReserva(Reserva reserva) {
 		List <Reserva> reservas= reservaDAO.getReservas();
 		int existe =0;
+//		if (reserva.getMesa()==null) {
+//			return false;
+//		}
 		for (Reserva reserva2 : reservas) {
 			if (reserva2.getLocalizador()== reserva.getLocalizador()) {
+				reserva.setId(reserva2.getId());
 				existe =1;
 			}
 		}
@@ -55,12 +58,8 @@ public class NegocioRestaurante implements INegocioRestaurante {
 			reservaDAO.updateReserva(reserva);
 			return true;
 		}
-		
 	}
-	public Mesa asignarMesa(EditarDto dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	public boolean cancelarReserva(Reserva reserva) {
 		if (reserva.getLocalizador() < 0) {
 			return false;
@@ -220,5 +219,18 @@ public class NegocioRestaurante implements INegocioRestaurante {
 	public List<Reserva> getReservas(){
 		return reservaDAO.getReservas();
 	}
+	
+	public Reserva getReserva(int localizador) {
+		return reservaDAO.getReservaByLocalizador(localizador);
+	}
 
+	public boolean comprobarReservaExiste(int localizador) {
+		List<Reserva> reservas= getReservas();
+		for (Reserva reserva : reservas) {
+			if (reserva.getLocalizador()==localizador){
+				return true;
+			}
+		}
+		return false;
+	}
 }

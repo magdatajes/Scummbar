@@ -10,7 +10,7 @@
 		<div class="body">
 			<div class="alert alert-blockalertsuccess">
 				<c:choose>
-					<c:when test="${cancelado}">
+					<c:when test="${editado}">
 						<spring:message code="editado.mensaje" />
 					</c:when>
 					<c:otherwise>

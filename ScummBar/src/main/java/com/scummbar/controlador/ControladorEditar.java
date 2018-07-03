@@ -12,28 +12,50 @@ import com.scummbar.service.INegocioRestaurante;
 
 @Controller
 public class ControladorEditar {
-	
+
 	@Autowired
 	INegocioRestaurante negocioRestaurante;
-	
+
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public ModelAndView verFormulario() {
 		ModelAndView model = new ModelAndView("editar");
-		EditarDto dto= new EditarDto();
-		dto.setTurnos(negocioRestaurante.getTurnos());
+		EditarDto dto = new EditarDto();
 		model.addObject("command", dto);
 		return model;
 	}
 
+	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
-		public ModelAndView submitFormulario(EditarDto dto){
-			ModelAndView model = new ModelAndView("editado");
-			Reserva reserva= new Reserva();
-			reserva.setLocalizador(dto.getLocalizador());
-			reserva.setPersonas(dto.getPersonas());
-			reserva.setMesa(negocioRestaurante.asignarMesa(dto));
-			reserva.setDia(dto.getDia());
-			model.addObject("editado", negocioRestaurante.editarReserva(reserva));
+	public ModelAndView submitFormulario(EditarDto dto) {
+		ModelAndView model = new ModelAndView("editando");
+		Reserva reserva= new Reserva();
+		reserva.setLocalizador(dto.getLocalizador());
+		if(negocioRestaurante.comprobarReservaExiste(dto.getLocalizador())) {
+			model.addObject("editando", dto);
 			return model;
+		}else {
+			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/editando", method = RequestMethod.GET)
+	public ModelAndView verFormulario2(EditarDto dto) {
+		ModelAndView model = new ModelAndView("editado");
+		dto.setTurnos(negocioRestaurante.getTurnos());
+		model.addObject("command", dto);
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/editando", method = RequestMethod.POST)
+	public ModelAndView submitFormulario2(EditarDto dto) {
+		ModelAndView model = new ModelAndView("editando");
+		Reserva reserva = new Reserva();
+		reserva.setLocalizador(dto.getLocalizador());
+		reserva.setPersonas(dto.getPersonas());
+		reserva.setDia(dto.getDia());
+		reserva.setTurno(negocioRestaurante.ponerTurno(dto.getTurnoId()));
+		model.addObject("editado", negocioRestaurante.editarReserva(reserva));
+		return model;
+	}
+}

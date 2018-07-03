@@ -35,7 +35,11 @@ public interface INegocioRestaurante {
 	public int getPlazasReservadas(Date fecha, Turno turno);
 	
 	public boolean editarReserva(Reserva reserva);
-
-	Mesa asignarMesa(EditarDto dto);
+	
+	//Mesa asignarMesa(EditarDto dto);
+	
+	public Reserva getReserva(int localizador);
+	
+	public boolean comprobarReservaExiste(int localizador);
 	
 }

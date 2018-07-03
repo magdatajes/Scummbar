@@ -22,5 +22,7 @@ public interface ReservaDAO {
 	public List<Mesa> getMesasPorTurnoYRestaurante(Turno turno, Restaurante restaurante);
 	
 	public int sumaPlazas(Date fecha, Turno turno);
+	
+	public Reserva getReservaByLocalizador(int localizador);
 
 }

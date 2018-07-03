@@ -31,8 +31,12 @@ public class ReservaDAOImpl implements ReservaDAO {
 	}
 
 	public void updateReserva(Reserva reserva) {
-		Reserva reservaToUpdate = getReserva(reserva.getId());
+		Reserva reservaToUpdate= new Reserva();
+		reservaToUpdate= getReservaByLocalizador(reserva.getLocalizador());
 		reservaToUpdate.setLocalizador(reserva.getLocalizador());
+		reservaToUpdate.setRestaurante(reserva.getRestaurante());
+		reservaToUpdate.setMesa(reserva.getMesa());
+		reservaToUpdate.setTurno(reserva.getTurno());
 		reservaToUpdate.setPersonas(reserva.getPersonas());
 		reservaToUpdate.setDia(reserva.getDia());
 		reservaToUpdate.setRestaurante(reserva.getRestaurante());
@@ -71,5 +75,14 @@ public class ReservaDAOImpl implements ReservaDAO {
 				+ "' and r.dia= '" + fecha + "'").executeUpdate();
 	}
 	
+	public Reserva getReservaByLocalizador(int localizador) {
+		List <Reserva> reservas= getReservas();
+		for (Reserva reserva : reservas) {
+			if (reserva.getLocalizador()==localizador) {
+				return reserva;
+			}
+		}
+		return null;
+	}
 	
 }
