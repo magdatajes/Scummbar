@@ -15,6 +15,7 @@ import com.scummbar.dao.MesaDAO;
 import com.scummbar.dao.ReservaDAO;
 import com.scummbar.dao.RestauranteDAO;
 import com.scummbar.dao.TurnoDAO;
+import com.scummbar.modelo.dto.EditarDto;
 import com.scummbar.modelo.dto.ReservarDto;
 import com.scummbar.modelo.entities.Mesa;
 import com.scummbar.modelo.entities.Reserva;
@@ -56,7 +57,10 @@ public class NegocioRestaurante implements INegocioRestaurante {
 		}
 		
 	}
-	
+	public Mesa asignarMesa(EditarDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public boolean cancelarReserva(Reserva reserva) {
 		if (reserva.getLocalizador() < 0) {
 			return false;
@@ -216,4 +220,5 @@ public class NegocioRestaurante implements INegocioRestaurante {
 	public List<Reserva> getReservas(){
 		return reservaDAO.getReservas();
 	}
+
 }

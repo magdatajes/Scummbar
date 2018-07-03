@@ -30,7 +30,8 @@ public class ControladorEditar {
 			ModelAndView model = new ModelAndView("editado");
 			Reserva reserva= new Reserva();
 			reserva.setLocalizador(dto.getLocalizador());
-			//reserva.setPersonas(dto.getPersonas());
+			reserva.setPersonas(dto.getPersonas());
+			reserva.setMesa(negocioRestaurante.asignarMesa(dto));
 			reserva.setDia(dto.getDia());
 			model.addObject("editado", negocioRestaurante.editarReserva(reserva));
 			return model;
