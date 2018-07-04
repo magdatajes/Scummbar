@@ -35,10 +35,12 @@ public class NegocioRestaurante implements INegocioRestaurante {
 	@Autowired
 	MesaDAO mesaDAO;
 
-//	public NegocioRestaurante(RestauranteDAO restauranteDAO, ReservaDAO reservaDAO) {
-//		this.restauranteDAO = restauranteDAO;
-//		this.reservaDAO = reservaDAO;
-//	}
+	public NegocioRestaurante(RestauranteDAO restauranteDAO, ReservaDAO reservaDAO, MesaDAO mesaDAO, TurnoDAO turnoDAO) {
+		this.restauranteDAO = restauranteDAO;
+		this.reservaDAO = reservaDAO;
+		this.mesaDAO = mesaDAO;
+		this.turnoDAO= turnoDAO;
+	}
 
 	public boolean editarReserva(Reserva reserva) {
 		List <Reserva> reservas= reservaDAO.getReservas();

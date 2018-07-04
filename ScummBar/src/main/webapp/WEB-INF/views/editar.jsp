@@ -17,7 +17,7 @@
 					<form:input path="Localizador" type="text"/>
 				</div>
 
-					<button type="submit" value="Editar">
+					<button type="submit" value="/editando">
 						<spring:message code="editar.comprobar" />
 					</button>
 				</div>

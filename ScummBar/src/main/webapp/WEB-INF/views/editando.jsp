@@ -20,6 +20,8 @@
 			<form:form action="editando" method="post">
 				<div>
 					<label for="personas"><spring:message code="reservar.personas"/></label>
+<%-- 					<form:input path="personas" type="text"/> --%>
+				</div>
 <%-- 					<form:select path="personas" htmlEscape="true"> --%>
 <%-- 						<c:forEach begin="1" end="10" var="count"> --%>
 <%-- 							<form:option value="${count}" /> --%>
@@ -28,10 +30,10 @@
 				</div>
 				<div>
 					<label for="dia"><spring:message code="cancelar.dia"/></label>
-					<form:input path="dia" type="text" cssClass="date-picker" />
+<%-- 					<form:input path="dia" type="text" cssClass="date-picker" /> --%>
 				</div>
 				<label for="turno"><spring:message code="cancelar.turno"/></label>
-<%-- 				<form:select path="turnoId" items="${command.turnos}"  itemValue="id" itemLabel="descripcion" htmlEscape="true" /> --%>
+				<form:select path="turnoId" items="${command.turnos}"  itemValue="id" itemLabel="descripcion" htmlEscape="true" />
 				</div>
 				
 				<div>

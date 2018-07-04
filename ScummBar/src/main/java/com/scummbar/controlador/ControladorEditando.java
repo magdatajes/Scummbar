@@ -11,31 +11,30 @@ import com.scummbar.modelo.entities.Reserva;
 import com.scummbar.service.INegocioRestaurante;
 
 @Controller
-public class ControladorEditar {
+public class ControladorEditando {
 
 	@Autowired
 	INegocioRestaurante negocioRestaurante;
 
-	@RequestMapping(value = "/editar", method = RequestMethod.GET)
-	public ModelAndView verFormulario() {
-		ModelAndView model = new ModelAndView("editar");
-		EditarDto dto = new EditarDto();
+
+	@RequestMapping(value = "/editando", method = RequestMethod.GET)
+	public ModelAndView verFormulario(EditarDto dto) {
+		ModelAndView model = new ModelAndView("editando");
+		dto.setTurnos(negocioRestaurante.getTurnos());
 		model.addObject("command", dto);
 		return model;
 	}
-
 	
-	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/editando", method = RequestMethod.POST)
 	public ModelAndView submitFormulario(EditarDto dto) {
 		ModelAndView model = new ModelAndView("editando");
-		Reserva reserva= new Reserva();
+		Reserva reserva = new Reserva();
 		reserva.setLocalizador(dto.getLocalizador());
-		if(negocioRestaurante.comprobarReservaExiste(dto.getLocalizador())) {
-			model.addObject("editando", dto);
-			return model;
-		}else {
-			return null;
-		}
+		reserva.setPersonas(dto.getPersonas());
+		reserva.setDia(dto.getDia());
+		reserva.setTurno(negocioRestaurante.ponerTurno(dto.getTurnoId()));
+		model.addObject("editar", negocioRestaurante.editarReserva(reserva));
+		return model;
 	}
-
 }
