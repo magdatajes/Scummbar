@@ -34,7 +34,7 @@ public class ControladorEditando {
 		reserva.setPersonas(dto.getPersonas());
 		reserva.setDia(dto.getDia());
 		reserva.setTurno(negocioRestaurante.ponerTurno(dto.getTurnoId()));
-		model.addObject("editar", negocioRestaurante.editarReserva(reserva));
+		model.addObject("editado", negocioRestaurante.editarReserva(reserva));
 		return model;
 	}
 }

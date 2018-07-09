@@ -23,7 +23,6 @@ public class ControladorEditar {
 		model.addObject("command", dto);
 		return model;
 	}
-
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView submitFormulario(EditarDto dto) {

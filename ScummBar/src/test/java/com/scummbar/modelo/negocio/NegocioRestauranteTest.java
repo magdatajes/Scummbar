@@ -108,7 +108,7 @@ public class NegocioRestauranteTest {
 	}
 
 	@Test
-	public void asignacionDeMesas() { 
+	public void asignacionDeMesasSinReservas() { 
 		ReservarDto dto = new ReservarDto();
 		dto.setPersonas(10);
 		dto.setRestauranteId(0);
@@ -117,6 +117,25 @@ public class NegocioRestauranteTest {
 		Mockito.when(turnoDAO.getTurno(0)).thenReturn(turno);
 		Assert.assertNull(negocioRestaurante.asignarMesa(dto));
 		dto.setPersonas(4);
+		Assert.assertNotNull(negocioRestaurante.asignarMesa(dto));
+	}
+	
+	@Test
+	public void asignacionMesasConReservasHechas() {
+		Reserva reserva=new Reserva();
+		Mesa mesa1 = new Mesa();
+		reserva.setMesa(mesa1);
+		negocioRestaurante.reservar(restaurante, reserva);
+		Mockito.verify(reservaDAO).addReserva(reserva);
+		ReservarDto dto= new ReservarDto();
+		dto.setPersonas(2);
+		dto.setRestauranteId(0);
+		dto.setTurnoId(0);
+		Mockito.when(restauranteDAO.getRestaurante(0)).thenReturn(restaurante);
+		Mockito.when(turnoDAO.getTurno(0)).thenReturn(turno);
+		List<Reserva> reservas= new ArrayList<Reserva>();
+		reservas.add(reserva);
+		Mockito.when(reservaDAO.getReservas()).thenReturn(reservas);
 		Assert.assertNotNull(negocioRestaurante.asignarMesa(dto));
 	}
 }

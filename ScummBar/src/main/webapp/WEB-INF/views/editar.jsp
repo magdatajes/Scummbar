@@ -16,7 +16,6 @@
 					<label for="localizador"><spring:message code="editar.localizador"/></label>
 					<form:input path="Localizador" type="text"/>
 				</div>
-
 					<button type="submit" value="/editando">
 						<spring:message code="editar.comprobar" />
 					</button>

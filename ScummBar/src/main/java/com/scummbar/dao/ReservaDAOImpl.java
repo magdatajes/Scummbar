@@ -34,8 +34,8 @@ public class ReservaDAOImpl implements ReservaDAO {
 		Reserva reservaToUpdate= new Reserva();
 		reservaToUpdate= getReservaByLocalizador(reserva.getLocalizador());
 		reservaToUpdate.setLocalizador(reserva.getLocalizador());
-		reservaToUpdate.setRestaurante(reserva.getRestaurante());
-		reservaToUpdate.setMesa(reserva.getMesa());
+		//reservaToUpdate.setRestaurante(reserva.getRestaurante());
+		//reservaToUpdate.setMesa(reserva.getMesa());
 		reservaToUpdate.setTurno(reserva.getTurno());
 		reservaToUpdate.setPersonas(reserva.getPersonas());
 		reservaToUpdate.setDia(reserva.getDia());
@@ -45,13 +45,16 @@ public class ReservaDAOImpl implements ReservaDAO {
 
 	}
 
-	public void deleteReserva(int localizador) {
+	public boolean deleteReserva(Reserva reservaACancelar) {
 		List<Reserva> reservas = getReservas();
 		for (Iterator<Reserva> iterator = reservas.iterator(); iterator.hasNext();) {
 			Reserva reserva = (Reserva) iterator.next();
-			if (reserva.getLocalizador() == localizador)
-				getCurrentSession().createQuery("delete Reserva where localizador = '" + localizador + "'").executeUpdate();
+			if (reserva.getLocalizador() == reservaACancelar.getLocalizador() && reserva.getRestaurante().getId()==reservaACancelar.getRestaurante().getId()) {
+				getCurrentSession().createQuery("delete Reserva where localizador = '" + reservaACancelar.getLocalizador() + "'").executeUpdate();
+				return true;
+			}	
 		}
+		return false;	
 	}
 
 	@SuppressWarnings("unchecked")

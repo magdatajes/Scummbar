@@ -15,7 +15,7 @@ public interface ReservaDAO {
 
 	public Reserva getReserva(int id);
 
-	public void deleteReserva(int localizador);
+	public boolean deleteReserva(Reserva reserva);
 
 	public List<Reserva> getReservas();
 
@@ -24,5 +24,4 @@ public interface ReservaDAO {
 	public int sumaPlazas(Date fecha, Turno turno);
 	
 	public Reserva getReservaByLocalizador(int localizador);
-
 }

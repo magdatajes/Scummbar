@@ -3,7 +3,6 @@ package com.scummbar.service;
 import java.util.Date;
 import java.util.List;
 
-import com.scummbar.modelo.dto.EditarDto;
 import com.scummbar.modelo.dto.ReservarDto;
 import com.scummbar.modelo.entities.Mesa;
 import com.scummbar.modelo.entities.Reserva;
@@ -35,8 +34,6 @@ public interface INegocioRestaurante {
 	public int getPlazasReservadas(Date fecha, Turno turno);
 	
 	public boolean editarReserva(Reserva reserva);
-	
-	//Mesa asignarMesa(EditarDto dto);
 	
 	public Reserva getReserva(int localizador);
 	

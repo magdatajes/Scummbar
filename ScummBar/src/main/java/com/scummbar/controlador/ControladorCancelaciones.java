@@ -34,6 +34,7 @@ public class ControladorCancelaciones {
 		
 		reserva.setDia(dto.getDia());
 		reserva.setLocalizador(dto.getLocalizador());
+		reserva.setRestaurante(negocioRestaurante.ponerNombreRestaurante(dto.getRestauranteId()));
 	
 		model.addObject("cancelado", negocioRestaurante.cancelarReserva(reserva));
 		return model;
