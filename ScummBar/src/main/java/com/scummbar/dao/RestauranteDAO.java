@@ -12,5 +12,5 @@ public interface RestauranteDAO {
 
 	public void deleteRestaurante(int id);
 
-	public List<Restaurante> getRestaurante();
+	public List<Restaurante> getRestaurantes();
 }

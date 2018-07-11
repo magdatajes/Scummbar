@@ -3,7 +3,6 @@ package com.scummbar.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -122,7 +121,7 @@ public boolean editarReserva(Reserva reserva) {
 	}
 
 	public List<Restaurante> getRestaurantes() {
-		return restauranteDAO.getRestaurante();
+		return restauranteDAO.getRestaurantes();
 	}
 
 	public List<Turno> getTurnos() {

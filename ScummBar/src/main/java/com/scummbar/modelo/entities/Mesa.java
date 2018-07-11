@@ -65,12 +65,5 @@ public class Mesa implements Serializable {
 		this.restaurante = restaurante;
 	}
 
-	// public List<Turno> getDisponible() {
-	// return disponible;
-	// }
-	//
-	// public void setDisponible(List<Turno> disponible) {
-	// this.disponible = disponible;
-	// }
 
 }
