@@ -46,7 +46,8 @@ public class TurnoDAOImpl implements TurnoDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Turno> getTurno() {
-		return getCurrentSession().createQuery("from Turno").list();
+		String hql= "from Turno";
+		return getCurrentSession().createQuery(hql).list();
 	}
 
 }

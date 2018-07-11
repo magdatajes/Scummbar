@@ -51,7 +51,8 @@ public class RestauranteDAOImpl implements RestauranteDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Restaurante> getRestaurante() {
-		return getCurrentSession().createQuery("from Restaurante").list();
+		String hql= "from Restaurante";
+		return getCurrentSession().createQuery(hql).list();
 	}
 
 }

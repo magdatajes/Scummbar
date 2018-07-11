@@ -3,6 +3,7 @@ package com.scummbar.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -35,29 +36,38 @@ public class NegocioRestaurante implements INegocioRestaurante {
 	MesaDAO mesaDAO;
 
 	// public NegocioRestaurante(RestauranteDAO restauranteDAO, ReservaDAO
-	// reservaDAO, MesaDAO mesaDAO, TurnoDAO turnoDAO) {
+	// reservaDAO, MesaDAO mesaDAO,
+	// TurnoDAO turnoDAO) {
 	// this.restauranteDAO = restauranteDAO;
 	// this.reservaDAO = reservaDAO;
 	// this.mesaDAO = mesaDAO;
-	// this.turnoDAO= turnoDAO;
+	// this.turnoDAO = turnoDAO;
 	// }
 
-	public boolean editarReserva(Reserva reserva) {
+	@SuppressWarnings("unused")
+public boolean editarReserva(Reserva reserva) {
 		List<Reserva> reservas = reservaDAO.getReservas();
-		int existe = 0;
-
-		for (Reserva reserva2 : reservas) {
-			if (reserva2.getLocalizador() == reserva.getLocalizador()) {
-				reserva.setId(reserva2.getId());
-				existe = 1;
-			}
-		}
-		if (existe == 0) {
+		
+		Reserva reservaEncontrada=reservas.stream()
+				.filter(r -> r.getLocalizador()==reserva.getLocalizador())
+				.findFirst().orElse(null);
+	
+		reserva.setId(reservaEncontrada.getId());
+		
+		if (reservaEncontrada==null) {
 			return false;
-		} else {
+		}
+		else {
 			reservaDAO.updateReserva(reserva);
 			return true;
 		}
+
+//		for (Reserva reserva2 : reservas) {
+//			if (reserva2.getLocalizador() == reserva.getLocalizador()) {
+//				reserva.setId(reserva2.getId());
+//				existe = 1;
+//			}
+//		}
 	}
 
 	public boolean cancelarReserva(Reserva reserva) {
@@ -72,6 +82,7 @@ public class NegocioRestaurante implements INegocioRestaurante {
 
 		Random rnd = new Random();
 		int localizador = rnd.nextInt(2000);
+		
 		reserva.setLocalizador(localizador);
 
 		if (reserva.getMesa() == null) {
@@ -82,36 +93,28 @@ public class NegocioRestaurante implements INegocioRestaurante {
 		}
 	}
 
-	@SuppressWarnings({ "unlikely-arg-type" })
 	public Mesa asignarMesa(ReservarDto dto) {
 
 		Restaurante restauranteReserva = restauranteDAO.getRestaurante(dto.getRestauranteId());
 		Turno turnoReserva = turnoDAO.getTurno(dto.getTurnoId());
 		List<Mesa> mesasDelRestaurante = restauranteReserva.getMesas();
 
-		mesasDelRestaurante.sort((m1, m2) -> ((Integer) m1.getCapacidad()).compareTo(((Integer) m2.getCapacidad())));
+		mesasDelRestaurante.sort((m1, m2) -> (m1.getCapacidad() - m2.getCapacidad()));
 
 		if (reservaDAO.getReservas().isEmpty()) {
+			return mesasDelRestaurante.stream().filter(m -> m.getCapacidad() >= dto.getPersonas()).findFirst()
+					.orElse(null);
 
-			mesasDelRestaurante.stream().filter(m -> m.getCapacidad() <= dto.getPersonas());
-
-			return mesasDelRestaurante.get(0);
-			// for (Mesa mesa : mesasDelRestaurante) {
-			// if (mesa.getCapacidad() >= dto.getPersonas()) {
-			// return mesa;
-			// }
-			// }
 		} else {
 			List<Mesa> mesasReservadas = reservaDAO.getMesasPorTurnoYRestaurante(turnoReserva, restauranteReserva);
-			
-			List<Mesa> result = mesasDelRestaurante.stream()
-					.filter(m -> m.getCapacidad() >= dto.getPersonas()) //falta que elimine las que ya estan reservadas
-					.collect(Collectors.toList());
 
-			return result.isEmpty() ? null : mesasDelRestaurante.get(0);
+			List<Mesa> result = mesasDelRestaurante.stream().filter(m -> m.getCapacidad() >= dto.getPersonas())
+					.filter(mk -> !mesasReservadas.contains(mk)).collect(Collectors.toList());
+
+			return result.isEmpty() ? null : result.get(0);
 		}
 	}
-	
+
 	ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
 	public void addRestaurante(Restaurante restaurante) {
@@ -224,11 +227,20 @@ public class NegocioRestaurante implements INegocioRestaurante {
 
 	public boolean comprobarReservaExiste(int localizador) {
 		List<Reserva> reservas = getReservas();
-		for (Reserva reserva : reservas) {
-			if (reserva.getLocalizador() == localizador) {
-				return true;
-			}
+				Reserva reservaExistente=reservas.stream()
+				.filter(r -> r.getLocalizador()==localizador)
+				.findFirst().orElse(null);
+		if (reservaExistente== null) {
+			return false;
+		}else {
+			return true;
 		}
-		return false;
+				
+//		for (Reserva reserva : reservas) {
+//			if (reserva.getLocalizador() == localizador) {
+//				return true;
+//			}
+//		}
+//		return false;
 	}
 }

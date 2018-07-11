@@ -9,12 +9,34 @@
 	<head>
 <title>Lista de reservas</title>
 	</head>
-		<tiles:putAttribute name="body">
-			<div class="body">
-				<c:forEach var="reserva" items="${listaReservas}">
-				${reserva.localizador} ${reserva.restaurante.nombre} ${reserva.restaurante.direccion } 
-				${turno.descripcion } ${reserva.personas} personas<br/>
-				</c:forEach>
-			</div>
-		</tiles:putAttribute>
+	<tiles:putAttribute name="body">
+
+		<table width="50%" border="1" align="left">
+			<tr bgcolor=#FD02E3>
+				<th style="color: #FDFCFC">Localizador
+				</td>
+				<th style="color: #FDFCFC">Nombre restaurante
+				</td>
+				<th style="color: #FDFCFC">Direccion
+				</td>
+				<th style="color: #FDFCFC">Personas
+				</td>
+				<th style="color: #FDFCFC">Turno
+				</td>
+			</tr>
+
+			<c:forEach var="reserva" items="${listaReservas}">
+				<tr>
+
+					<td>${reserva.localizador}</td>
+					<td>${reserva.restaurante.nombre}</td>
+					<td>${reserva.restaurante.direccion }</td>
+					<td>${reserva.personas}personas</td>
+					<td>${reserva.turno.descripcion }</td>
+				</tr>
+			</c:forEach>
+
+		</table>
+
+	</tiles:putAttribute>
 </tiles:insertDefinition>

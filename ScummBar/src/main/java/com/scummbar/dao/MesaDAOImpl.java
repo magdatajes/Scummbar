@@ -44,7 +44,8 @@ public class MesaDAOImpl implements MesaDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Mesa> getMesas() {
-		return getCurrentSession().createQuery("from Mesa").list();
+		String hql= "from Mesa";
+		return getCurrentSession().createQuery(hql).list();
 
 	}
 

@@ -103,7 +103,9 @@ public class NegocioRestauranteTest {
 		Reserva reserva = new Reserva();
 		reserva.setLocalizador(001);
 		reserva.setMesa(new Mesa());
+		reserva.setRestaurante(restaurante);
 		Assert.assertTrue(negocioRestaurante.reservar(restaurante, reserva));
+		Mockito.when(reservaDAO.deleteReserva(reserva)).thenReturn(true);
 		Assert.assertTrue(negocioRestaurante.cancelarReserva(reserva));
 	}
 
@@ -127,15 +129,18 @@ public class NegocioRestauranteTest {
 		reserva.setMesa(mesa1);
 		negocioRestaurante.reservar(restaurante, reserva);
 		Mockito.verify(reservaDAO).addReserva(reserva);
+		
 		ReservarDto dto= new ReservarDto();
 		dto.setPersonas(2);
 		dto.setRestauranteId(0);
 		dto.setTurnoId(0);
 		Mockito.when(restauranteDAO.getRestaurante(0)).thenReturn(restaurante);
 		Mockito.when(turnoDAO.getTurno(0)).thenReturn(turno);
+		
 		List<Reserva> reservas= new ArrayList<Reserva>();
 		reservas.add(reserva);
 		Mockito.when(reservaDAO.getReservas()).thenReturn(reservas);
+		
 		Assert.assertNotNull(negocioRestaurante.asignarMesa(dto));
 	}
 }

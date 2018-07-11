@@ -5,9 +5,30 @@
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 		<div class="body">
-			<c:forEach var="restaurante" items="${listaRestaurantes}">
-	${restaurante.id} ${restaurante.nombre} ${restaurante.direccion} ${restaurante.descripcion} <br />
-			</c:forEach>
+
+			<table width="50%" border="1" align="left">
+				<tr bgcolor=#F5C9FB>
+					<th>Id
+					</td>
+					<th>Nombre restaurante
+					</td>
+					<th>Direccion
+					</td>
+					<th>Descripcion
+					</td>
+				</tr>
+
+				<c:forEach var="restaurante" items="${listaRestaurantes}">
+					<tr>
+
+						<td>${restaurante.id}</td>
+						<td>${restaurante.nombre}</td>
+						<td>${restaurante.direccion}</td>
+						<td>${restaurante.descripcion}</td>
+					</tr>
+				</c:forEach>
+
+			</table>
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

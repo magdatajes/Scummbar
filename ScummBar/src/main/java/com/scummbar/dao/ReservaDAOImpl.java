@@ -31,11 +31,11 @@ public class ReservaDAOImpl implements ReservaDAO {
 	}
 
 	public void updateReserva(Reserva reserva) {
-		Reserva reservaToUpdate= new Reserva();
-		reservaToUpdate= getReservaByLocalizador(reserva.getLocalizador());
+		Reserva reservaToUpdate = new Reserva();
+		reservaToUpdate = getReservaByLocalizador(reserva.getLocalizador());
 		reservaToUpdate.setLocalizador(reserva.getLocalizador());
-		//reservaToUpdate.setRestaurante(reserva.getRestaurante());
-		//reservaToUpdate.setMesa(reserva.getMesa());
+		// reservaToUpdate.setRestaurante(reserva.getRestaurante());
+		// reservaToUpdate.setMesa(reserva.getMesa());
 		reservaToUpdate.setTurno(reserva.getTurno());
 		reservaToUpdate.setPersonas(reserva.getPersonas());
 		reservaToUpdate.setDia(reserva.getDia());
@@ -45,21 +45,28 @@ public class ReservaDAOImpl implements ReservaDAO {
 
 	}
 
+	@SuppressWarnings("unused")
 	public boolean deleteReserva(Reserva reservaACancelar) {
 		List<Reserva> reservas = getReservas();
+
 		for (Iterator<Reserva> iterator = reservas.iterator(); iterator.hasNext();) {
 			Reserva reserva = (Reserva) iterator.next();
-			if (reserva.getLocalizador() == reservaACancelar.getLocalizador() && reserva.getRestaurante().getId()==reservaACancelar.getRestaurante().getId()) {
-				getCurrentSession().createQuery("delete Reserva where localizador = '" + reservaACancelar.getLocalizador() + "'").executeUpdate();
+
+			if (reserva.getLocalizador() == reservaACancelar.getLocalizador()
+					&& reserva.getRestaurante().getId() == reservaACancelar.getRestaurante().getId()) {
+				String hql = "delete Reserva where localizador = :Localizador ";
+				int respuesta = getCurrentSession().createQuery(hql)
+						.setParameter("Localizador", reservaACancelar.getLocalizador()).executeUpdate();
 				return true;
-			}	
+			}
 		}
-		return false;	
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Reserva> getReservas() {
-		return getCurrentSession().createQuery("from Reserva").list();
+		String hql="from Reserva";
+		return getCurrentSession().createQuery(hql).list();
 	}
 
 	public Reserva getReserva(int id) {
@@ -67,25 +74,29 @@ public class ReservaDAOImpl implements ReservaDAO {
 		return reserva;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Mesa> getMesasPorTurnoYRestaurante(Turno turno, Restaurante restaurante) {
-		return getCurrentSession().createQuery("select r.mesa from Reserva r where r.turno.descripcion= '" + turno.getDescripcion()
-				+ "' and r.restaurante.nombre= '" + restaurante.getNombre() + "'").list();
+		String hql = "select r.mesa from Reserva r where r.turno.descripcion= :turnoDescripcion and r.restaurante.nombre= :restauranteNombre";
+		List respuesta = getCurrentSession().createQuery(hql).setParameter("turnoDescripcion", turno.getDescripcion())
+				.setParameter("restauranteNombre", restaurante.getNombre()).list();
+		return respuesta;
 	}
-	
+
 	public int sumaPlazas(Date fecha, Turno turno) {
-		return getCurrentSession().createQuery("select sum(r.personas) from Reserva r where r.turno.descripcion= '" + turno.getDescripcion()
-				+ "' and r.dia= '" + fecha + "'").executeUpdate();
+		String hql = "select sum(r.personas) from Reserva r where r.turno.descripcion= :turnoDescripcion and r.dia= :fecha";
+		int respuesta = getCurrentSession().createQuery(hql).setParameter("turnoDescripcion", turno.getDescripcion())
+				.setParameter("fecha", fecha).executeUpdate();
+		return respuesta;
 	}
-	
+
 	public Reserva getReservaByLocalizador(int localizador) {
-		List <Reserva> reservas= getReservas();
+		List<Reserva> reservas = getReservas();
 		for (Reserva reserva : reservas) {
-			if (reserva.getLocalizador()==localizador) {
+			if (reserva.getLocalizador() == localizador) {
 				return reserva;
 			}
 		}
 		return null;
 	}
-	
+
 }
