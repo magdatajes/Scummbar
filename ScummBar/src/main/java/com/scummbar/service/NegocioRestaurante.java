@@ -60,13 +60,6 @@ public boolean editarReserva(Reserva reserva) {
 			reservaDAO.updateReserva(reserva);
 			return true;
 		}
-
-//		for (Reserva reserva2 : reservas) {
-//			if (reserva2.getLocalizador() == reserva.getLocalizador()) {
-//				reserva.setId(reserva2.getId());
-//				existe = 1;
-//			}
-//		}
 	}
 
 	public boolean cancelarReserva(Reserva reserva) {

@@ -1,45 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.7.3/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.7.3/themes/base/jquery-ui.css">
 <script>
-$ (function(){
-	$( '#dia').datepicker({dateFormat: 'dd/mm/yy'});
-	$( '#dia').attr('readonly', true);
-});
+	$(function() {
+		$('#dia').datepicker({
+			dateFormat : 'dd/mm/yy'
+		});
+		$('#dia').attr('readonly', true);
+	});
 </script>
 <tiles:insertDefinition name="defaultTemplate">
-<tiles:putAttribute name="body">
+	<tiles:putAttribute name="body">
 
 		<div class="body">
 			<form:form action="cancelar" method="post">
 				<div>
-					<label for="restaurante"><spring:message code="cancelar.restaurante"/></label>
-					<form:select path="restauranteId" items="${command.restaurantes}" 
- 						itemValue="id" itemLabel="nombre" htmlEscape="true" /> 
- 				</div>
+					<label for="restaurante"><spring:message
+							code="cancelar.restaurante" /></label>
+					<form:select path="restauranteId" items="${command.restaurantes}"
+						itemValue="id" itemLabel="nombre" htmlEscape="true" />
+				</div>
 				<div>
-					<label for="dia"><spring:message code="cancelar.dia"/></label>
+					<label for="dia"><spring:message code="cancelar.dia" /></label>
 					<form:input path="dia" type="text" cssClass="date-picker" />
 				</div>
 				<div>
-					<label for="turno"><spring:message code="cancelar.turno"/></label>
-				<form:select path="turnoId" items="${command.turnos}" 
-					itemValue="id" itemLabel="descripcion" htmlEscape="true" />
+					<label for="turno"><spring:message code="cancelar.turno" /></label>
+					<form:select path="turnoId" items="${command.turnos}"
+						itemValue="id" itemLabel="descripcion" htmlEscape="true" />
 				</div>
-				<div> 
-					<label for="localizador"><spring:message code="cancelar.localizador"/></label>
-					<form:input path="Localizador" type="text"/>
-				</div>	
-			
 				<div>
-					<button type="submit" value="Cancelar"><spring:message code="cancelar.submit"/></button>
+					<label for="localizador"><spring:message
+							code="cancelar.localizador" /></label>
+					<form:input path="Localizador" type="text" />
 				</div>
-			</form:form>	
-		</div>	
- </tiles:putAttribute> 
- </tiles:insertDefinition> 
+
+				<div>
+					<button type="submit" value="Cancelar">
+						<spring:message code="cancelar.submit" />
+					</button>
+				</div>
+			</form:form>
+		</div>
+	</tiles:putAttribute>
+</tiles:insertDefinition>

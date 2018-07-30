@@ -11,15 +11,15 @@ import com.scummbar.service.INegocioRestaurante;
 @Controller
 public class ControladorHelloWorld {
 
+	@Autowired
+	INegocioRestaurante negocioRestaurante;
+
 	@RequestMapping("/hello")
 	public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name,
 			Model model) {
 		model.addAttribute("name", name);
 		return "helloworld";
 	}
-
-	@Autowired
-	INegocioRestaurante negocioRestaurante;
 
 	@RequestMapping("/menu")
 	public String menu(Model model) {
@@ -30,4 +30,5 @@ public class ControladorHelloWorld {
 		model.addAttribute("editarUrl", "editar");
 		return "menu";
 	}
+
 }

@@ -20,7 +20,7 @@ public class ControladorCancelaciones {
 	public ModelAndView verFormulario() {
 		ModelAndView model = new ModelAndView("cancelar");
 		CancelarDto dto = new CancelarDto();
-		
+
 		dto.setRestaurantes(negocioRestaurante.getRestaurantes());
 		dto.setTurnos(negocioRestaurante.getTurnos());
 		model.addObject("command", dto);
@@ -31,11 +31,11 @@ public class ControladorCancelaciones {
 	public ModelAndView submitFormulario(CancelarDto dto) {
 		ModelAndView model = new ModelAndView("cancelado");
 		Reserva reserva = new Reserva();
-		
+
 		reserva.setDia(dto.getDia());
 		reserva.setLocalizador(dto.getLocalizador());
 		reserva.setRestaurante(negocioRestaurante.ponerNombreRestaurante(dto.getRestauranteId()));
-	
+
 		model.addObject("cancelado", negocioRestaurante.cancelarReserva(reserva));
 		return model;
 	}

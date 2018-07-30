@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,28 +13,31 @@
 		$('#dia').datepicker({
 			dateFormat : 'mm/dd/yy'
 		});
-		$('#dia').attr('readonly', true);});
+		$('#dia').attr('readonly', true);
+	});
 </script>
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 		<div class="body">
 			<form:form action="reservar" method="post">
 				<div>
-					<label for="restaurante"><spring:message code="reservar.restaurante"/></label>
-				 <form:select path="restauranteId" items="${command.restaurantes}"
+					<label for="restaurante"><spring:message
+							code="reservar.restaurante" /></label>
+					<form:select path="restauranteId" items="${command.restaurantes}"
 						itemValue="id" itemLabel="nombre" htmlEscape="true" />
 				</div>
 				<div>
-					<label for="dia"><spring:message code="reservar.dia"/></label>
+					<label for="dia"><spring:message code="reservar.dia" /></label>
 					<form:input path="dia" type="text" cssClass="date-picker" />
 				</div>
 				<div>
-					<label for="turno"><spring:message code="reservar.turno"/></label>
+					<label for="turno"><spring:message code="reservar.turno" /></label>
 					<form:select path="turnoId" items="${command.turnos}"
 						itemValue="id" itemLabel="descripcion" htmlEscape="true" />
 				</div>
 				<div>
-					<label for="personas"><spring:message code="reservar.personas"/></label>
+					<label for="personas"><spring:message
+							code="reservar.personas" /></label>
 					<form:select path="personas" htmlEscape="true">
 						<c:forEach begin="1" end="10" var="count">
 							<form:option value="${count}" />
@@ -41,7 +45,9 @@
 					</form:select>
 				</div>
 				<div>
-					<button type="submit" value="Reservar"><spring:message code="reservar.submit"/></button>
+					<button type="submit" value="Reservar">
+						<spring:message code="reservar.submit" />
+					</button>
 				</div>
 			</form:form>
 		</div>

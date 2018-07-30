@@ -29,7 +29,6 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
-@SuppressWarnings("restriction")
 @Configuration
 @ComponentScan("com.scummbar")
 @EnableWebMvc
@@ -135,6 +134,5 @@ public class Config extends WebMvcConfigurerAdapter {
 		final LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
 		interceptor.setParamName("idioma");
 		registry.addInterceptor(interceptor);
-
 	}
 }
